@@ -18,7 +18,7 @@ import rc4
 key='\xaa\xaa\xaa\xaa\xaa'
 
 #lecture de message chiffré - rdpcap retourne toujours un array, même si la capture contient un seul paquet
-arp = rdpcap('arp.cap')[0]  
+arp = rdpcap('arpNew.cap')[0]  
 
 # rc4 seed est composé de IV+clé
 seed = arp.iv+key 

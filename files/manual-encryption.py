@@ -22,7 +22,7 @@ arp = rdpcap('arp.cap')[0]
 IV = arp.iv
 
 # Payload to encrypt
-DATA = "Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World" # The actual payload
+DATA = "Hello World Hello World Hello World " # CAUTION : The size of the message matters
 
 # The seed is composed of the IV and the KEY
 seed = IV + KEY
@@ -49,8 +49,5 @@ arpNew = rdpcap('arp.cap')[0]
 arpNew.wepdata = encryptedData
 arpNew.icv = encryptedICVLong
 
-#Create the file
+# Create the file
 wrpcap("arpNew.cap", arpNew)
-
-print("PLAIN DATA in hexadecimal : " + DATA.encode("hex"))
-print("ENCRYPTED DATA in hexadecimal : " + arpNew.wepdata.encode("hex"))

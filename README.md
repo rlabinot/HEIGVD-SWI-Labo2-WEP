@@ -74,13 +74,13 @@ sudo make install
 Dans cette partie, vous allez récupérer le script Python [`manual-decryption.py`](https://github.com/arubinst/HEIGVD-SWI-Labo2-WEP/blob/master/files/). Il vous faudra également le fichier de capture [`arp.cap`](https://github.com/arubinst/HEIGVD-SWI-Labo2-WEP/blob/master/files/) contenant un message arp chiffré avec WEP et la librairie [`rc4.py`](https://github.com/arubinst/HEIGVD-SWI-Labo2-WEP/blob/master/files/) pour générer les keystreams indispensables pour chiffrer/déchiffrer WEP. Tous les fichiers doivent être copiés dans le même répertoire local sur vos machines.
 
 - Ouvrir le fichier de capture [`arp.cap`](https://github.com/arubinst/HEIGVD-SWI-Labo2-WEP/blob/master/files/) avec Wireshark
-   
+  
 - Utiliser Wireshark pour déchiffrer la capture. Pour cela, il faut configurer dans Wireshark la clé de chiffrement/déchiffrement WEP (Dans Wireshark : Preferences&rarr;Protocols&rarr;IEEE 802.11&rarr;Decryption Keys). Il faut également activer le déchiffrement dans la fenêtre IEEE 802.11 (« Enable decryption »). Vous trouverez la clé dans le script Python [`manual-decryption.py`](https://github.com/arubinst/HEIGVD-SWI-Labo2-WEP/blob/master/files/).
-   
+  
 - Exécuter le script avec `python manual-decryption.py`
-   
+  
 - Comparer la sortie du script avec la capture text déchiffrée par Wireshark
-   
+  
 - Analyser le fonctionnement du script
 
 ### 2. Chiffrement manuel de WEP
@@ -136,16 +136,23 @@ Le but c’est de réussir une authentification auprès de l’AP sans connaîtr
 
 Un fork du repo original . Puis, un Pull Request contenant :
 
--	Script de chiffrement WEP **abondamment commenté/documenté**
+- Script de chiffrement WEP **abondamment commenté/documenté**
   - Fichier pcap généré par votre script contenant la trame chiffrée
+
   - Capture d’écran de votre trame importée et déchiffré par Wireshark
--	Script de fragmentation **abondamment commenté/documenté**
+
+    ![](./files/encryption.PNG)
+- Script de fragmentation **abondamment commenté/documenté**
   - Fichier pcap généré par votre script contenant les fragments
+
   - Capture d’écran de vos trames importées et déchiffrés par Wireshark 
--	**(Challenge optionnel)** Script d’authentification clé partagée **abondamment commenté/documenté**
+
+    ![](./files/fragmentation.PNG)
+- **(Challenge optionnel)** Script d’authentification clé partagée **abondamment commenté/documenté**
+
   - Capture d’écran de votre authentification vue par Wireshark
 
--	Envoyer le hash du commit et votre username GitHub par email au professeur et à l'assistant
+- Envoyer le hash du commit et votre username GitHub par email au professeur et à l'assistant
 
 
 ## Échéance

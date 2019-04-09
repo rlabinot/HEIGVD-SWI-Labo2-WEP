@@ -18,7 +18,7 @@ import rc4
 KEY ='\xaa\xaa\xaa\xaa\xaa'
 
 # Payload to encrypt
-DATA = "Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World" # The actual payload
+DATA = "Hello world Hello world Hello world " # CAUTION : The size of the message matters
 NB_FRAGS = 3
 DATA_SIZE = len(DATA)
 
@@ -27,6 +27,7 @@ A_THIRD_OF_DATA = DATA_SIZE/NB_FRAGS # corresponding to 1/3 of the data
 DATA_FRAG1 = DATA[:A_THIRD_OF_DATA] # first part = begin to 1/3
 DATA_FRAG2 = DATA[A_THIRD_OF_DATA: 2 * A_THIRD_OF_DATA] # second part = 1/3 to 2/3
 DATA_FRAG3 = DATA[2 * A_THIRD_OF_DATA:] # third part = 2/3 to the end
+FRAMES = [DATA_FRAG1, DATA_FRAG2, DATA_FRAG3]
 
 # Get the IV from the Wireshark capture
 arp = rdpcap('arp.cap')[0]
@@ -42,7 +43,7 @@ for i in range(NB_FRAGS):
     seed = IV + KEY
 
     # Create a ICV (wich is a CRC32 like the documentation https://docs.python.org/2/library/binascii.html#binascii.crc32)
-    dataICV = crc32(DATA)
+    dataICV = crc32(FRAMES[i])
     dataICV = struct.pack('<i', dataICV)
 
     # Encapsulation of the data with the ICV
@@ -64,10 +65,8 @@ for i in range(NB_FRAGS):
     arpNew.icv = encryptedICVLong
 
     # set the flag bit for "more fragment" to one if it's not the last part of the frame
-    if i != NB_FRAGS - 1:
-        arpNew.FCfield = arpNew.FCfield | 0x04 # 0x04 is the bit for more fragment and we set it with a OR bit operator
+    if i != NB_FRAGS - 1 :
+        arpNew.FCfield = arpNew.FCfield | 0x04 # 0x04 is the bit for more fragment (0100)
 
     arpNew.SC = i # update the value
     pcapWriter.write(arpNew) # write the part of the frame
-
-	
